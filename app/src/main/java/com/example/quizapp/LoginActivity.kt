@@ -1,12 +1,12 @@
 package com.example.quizapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.quizapp.databinding.ActivityLoginBinding
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -19,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var firebaseAuth = FirebaseAuth.getInstance()
+         firebaseAuth = FirebaseAuth.getInstance()
         binding.gotosignup.setOnClickListener {
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
@@ -40,30 +40,26 @@ class LoginActivity : AppCompatActivity() {
                         println(it.exception)
                     }
                 }
-            } else {
+            }
+            else {
                 Toast.makeText(this, "Empty Fields are not allowed", Toast.LENGTH_SHORT).show()
 
             }
         }
     }
+    override fun onStart(){
+        super.onStart()
 
-}
-//    override fun onStart() {
-//        super.onStart()
-//
-//        val currentUser = firebaseAuth.currentUser
-//
-//
-//
-//        if(currentUser !=null){
-//            Toast.makeText(this, "Signed in as: ${currentUser.email}", Toast.LENGTH_SHORT).show()
-//
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-//        }
-//        else{
-//            Toast.makeText(this, "No user signed in", Toast.LENGTH_SHORT).show()
-//        }
-  //  }
+        val currentUser = firebaseAuth.currentUser
+        if(currentUser !=null){
+            Toast.makeText(this, "Signed in as: ${currentUser.email}", Toast.LENGTH_SHORT).show()
 
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+        else{
+            Toast.makeText(this, "No user signed in", Toast.LENGTH_SHORT).show()
+        }
+    }
+ }
 
